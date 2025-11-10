@@ -1,4 +1,4 @@
-from typing import Annotated, Optional
+from typing import Annotated, Optional, List
 from pydantic import BaseModel, EmailStr, Field, StringConstraints, ConfigDict
 from annotated_types import Ge, Le
 
@@ -18,7 +18,17 @@ class CustomerRead(CustomerCreate):
 
 class OrderCreate(BaseModel):
     order_number: OrderNumberInt
-    total_cents = TotalCentsInt
-    customer_id = int
+    #total_cents = TotalCentsInt
+    #customer_id = int
+
+class OrderRead(OrderCreate):
+    model_config = ConfigDict(from_attributes=True)
+    id: int
+
+
+class CustomerUpdate(BaseModel):
+    name: Optional[NameStr]
+    email: Optional[EmailStr]
+    customer_since: Optional[CustomerSinceInt]
 
 
